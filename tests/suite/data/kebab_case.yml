@@ -1,0 +1,81 @@
+ad-hoc-code-signed:
+  - ad
+  - hoc
+  - code
+  - signed
+app-store-vendable:
+  - app
+  - store
+  - vendable
+beta-app:
+  - beta
+  - app
+bundle-size:
+  - bundle
+  - size
+device-based-vpp:
+  - device
+  - based
+  - vpp
+download-cancelled:
+  - download
+  - cancelled
+download-failed:
+  - download
+  - failed
+download-paused:
+  - download
+  - paused
+download-waiting:
+  - download
+  - waiting
+dynamic-size:
+  - dynamic
+  - size
+external-version-identifier:
+  - external
+  - version
+  - identifier
+has-update-available:
+  - has
+  - update
+  - available
+identifier:
+  - identifier
+installing:
+  - installing
+is-validated:
+  - is
+  - validated
+name:
+  - name
+short-version:
+  - short
+  - version
+version:
+  - version
+i-os-app:
+  - i
+  - os
+  - app
+i-tunes-store-id:
+  - i
+  - tunes
+  - store
+  - id
+foo-bar-baz:
+  - foo
+  - bar
+  - baz
+foo1-bar3-baz4:
+  - foo1
+  - bar3
+  - baz4
+$%%#-bar3-baz4:
+  - $%%#
+  - bar3
+  - baz4
+__foo-bar-baz__:
+  - __foo
+  - bar
+  - baz__

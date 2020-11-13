@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from casec.container import CharacterType, CharacterContainer
+from delim.container import CharacterType, CharacterContainer
 
 
 class FormatterBase(ABC):
@@ -11,23 +11,30 @@ class FormatterBase(ABC):
 
 
 class CaseDelimitedFormatter(FormatterBase):
-    def __init__(self, first_character_casing: CharacterType, acronyms: List[str] = None):
+    def __init__(self, first_character_casing: CharacterType, format_literals: List[str] = None):
         self._first_character_casing = first_character_casing
-        self._acronyms = acronyms or []
+        self._format_literals = format_literals or []
 
     def format(self, words: List[CharacterContainer]) -> str:
-        acronyms = [acronym.lower() for acronym in self._acronyms]
+        format_literals = [acronym.lower() for acronym in self._format_literals]
         case_delimited = CharacterContainer()
         first_character_casing = self._first_character_casing
+        valid_first_characters = [
+            CharacterType.UPPERCASE,
+            CharacterType.LOWERCASE,
+            CharacterType.OTHER
+        ]
         should_capitalize = False
         is_first_word = True
 
         for word in words:
-            if str(word) in acronyms:
-                case_delimited.append_str(str(word).upper())
+            if str(word) in format_literals:
+                case_delimited.append_str(self._format_literals[format_literals.index(str(word))])
+                is_first_word = False
+                should_capitalize = True
             else:
                 for character in word:
-                    if is_first_word and character.case in (CharacterType.UPPERCASE, CharacterType.LOWERCASE):
+                    if is_first_word and character.case in valid_first_characters:
                         is_first_word = False
                         if first_character_casing == CharacterType.UPPERCASE:
                             case_delimited.append_str(character.character.upper())
@@ -47,7 +54,7 @@ class CaseDelimitedFormatter(FormatterBase):
         return str(case_delimited)
 
 
-class DelimitedFormatter(FormatterBase):
+class CharacterDelimitedFormatter(FormatterBase):
     def __init__(self, delimiter: str):
         self._delimiter = delimiter
 

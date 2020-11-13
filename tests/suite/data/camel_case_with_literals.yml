@@ -1,0 +1,83 @@
+adHocCodeSigned:
+  - ad
+  - hoc
+  - code
+  - signed
+appStoreVendable:
+  - app
+  - store
+  - vendable
+betaApp:
+  - beta
+  - app
+bundleSize:
+  - bundle
+  - size
+deviceBasedVPP:
+  - device
+  - based
+  - vpp
+downloadCancelled:
+  - download
+  - cancelled
+downloadFailed:
+  - download
+  - failed
+downloadPaused:
+  - download
+  - paused
+downloadWaiting:
+  - download
+  - waiting
+dynamicSize:
+  - dynamic
+  - size
+externalVersionIdentifier:
+  - external
+  - version
+  - identifier
+hasUpdateAvailable:
+  - has
+  - update
+  - available
+identifier:
+  - identifier
+installing:
+  - installing
+isValidated:
+  - is
+  - validated
+name:
+  - name
+shortVersion:
+  - short
+  - version
+version:
+  - version
+iOSApp:
+  - ios
+  - app
+iTunesStoreID:
+  - itunes
+  - store
+  - id
+iTunesStoreIDs:
+  - itunes
+  - store
+  - ids
+fooBarBaz:
+  - foo
+  - bar
+  - baz
+foo1Bar3Baz4:
+  - foo1
+  - bar3
+  - baz4
+$%%#Bar3Baz4:
+  - $%%#
+  - bar3
+  - baz4
+__fooBarBaz__:
+  - __foo
+  - bar
+  - baz__

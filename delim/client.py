@@ -1,7 +1,7 @@
 from argparse import ArgumentParser, _SubParsersAction as SubParser, RawTextHelpFormatter
 from typing import Tuple, Dict, List
 
-from casec.command import CommandGroupInterface, CommandInterface, CommandMetaInterface
+from delim.command import CommandGroupInterface, CommandInterface, CommandMetaInterface
 
 
 class ClientError(Exception):

@@ -4,13 +4,14 @@ from typing import NamedTuple, Tuple, Generator
 
 
 class CharacterType(Enum):
-    LOWERCASE = 0
-    UPPERCASE = 1
-    UNDERSCORE = 2
-    DASH = 3
-    DOT = 4
-    SLASH = 5
-    OTHER = 6
+    LOWERCASE = 'LOWERCASE'
+    UPPERCASE = 'UPPERCASE'
+    UNDERSCORE = 'UNDERSCORE'
+    DASH = 'DASH'
+    DOT = 'DOT'
+    SLASH = 'SLASH'
+    COMMA = 'COMMA'
+    OTHER = 'OTHER'
 
 
 class Character(NamedTuple):
@@ -34,6 +35,12 @@ class CharacterContainer:
     def __str__(self):
         return ''.join([c.character for c in self.characters])
 
+    def __repr__(self):
+        return self.__str__()
+
+    def __eq__(self, other):
+        return str(other) == str(self)
+
     @property
     def characters(self) -> Tuple[Character, ...]:
         return self._characters
@@ -52,5 +59,11 @@ class CharacterContainer:
                 yield Character(character, CharacterType.UNDERSCORE)
             elif character == '-':
                 yield Character(character, CharacterType.DASH)
+            elif character == '.':
+                yield Character(character, CharacterType.DOT)
+            elif character == '/':
+                yield Character(character, CharacterType.SLASH)
+            elif character == ',':
+                yield Character(character, CharacterType.COMMA)
             else:
                 yield Character(character, CharacterType.OTHER)

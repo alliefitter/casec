@@ -1,11 +1,12 @@
 from sys import stdout, argv
 
-from casec.client import Client
-from casec.command import RootCommandGroup, SnakeCaseCommand, CamelCaseCommand, PascalCaseCommand, KebabCaseCommand, \
-    ConstantCaseCommand, DomainCommand, PathCommand
-from casec.container import CharacterType
-from casec.operation import ParseDelimited, FormatCamelCase, FormatKebabCase, FormatPascalCase, ParseCaseDelimited, \
-    FormatSnakeCase, FormatConstantCase, FormatDomain, FormatPath
+from delim.client import Client
+from delim.command import RootCommandGroup, SnakeCaseCommand, CamelCaseCommand, PascalCaseCommand, KebabCaseCommand, \
+    ConstantCaseCommand, DomainCommand, PathCommand, CsvCommand
+from delim.container import CharacterType
+from delim.operation import ParseCharacterDelimited, FormatCamelCase, FormatKebabCase, FormatPascalCase, \
+    ParseCaseDelimited, \
+    FormatSnakeCase, FormatConstantCase, FormatDomain, FormatPath, FormatCsv
 
 
 def main(args=None):
@@ -15,13 +16,14 @@ def main(args=None):
             (
                 SnakeCaseCommand(
                     (
-                        ParseDelimited(CharacterType.UNDERSCORE),
+                        ParseCharacterDelimited(CharacterType.UNDERSCORE),
                         FormatCamelCase(),
                         FormatPascalCase(),
                         FormatKebabCase(),
                         FormatConstantCase(),
                         FormatDomain(),
-                        FormatPath()
+                        FormatPath(),
+                        FormatCsv()
                     ),
                     stdout
                 ),
@@ -33,7 +35,8 @@ def main(args=None):
                         FormatKebabCase(),
                         FormatConstantCase(),
                         FormatDomain(),
-                        FormatPath()
+                        FormatPath(),
+                        FormatCsv()
                     ),
                     stdout
                 ),
@@ -45,55 +48,72 @@ def main(args=None):
                         FormatKebabCase(),
                         FormatConstantCase(),
                         FormatDomain(),
-                        FormatPath()
+                        FormatPath(),
+                        FormatCsv()
                     ),
                     stdout
                 ),
                 KebabCaseCommand(
                     (
-                        ParseDelimited(CharacterType.DASH),
+                        ParseCharacterDelimited(CharacterType.DASH),
                         FormatSnakeCase(),
                         FormatCamelCase(),
                         FormatPascalCase(),
-                        FormatKebabCase(),
                         FormatDomain(),
-                        FormatPath()
+                        FormatPath(),
+                        FormatCsv()
                     ),
                     stdout
                 ),
                 ConstantCaseCommand(
                     (
-                        ParseDelimited(CharacterType.DASH),
+                        ParseCharacterDelimited(CharacterType.UNDERSCORE),
                         FormatSnakeCase(),
                         FormatCamelCase(),
                         FormatPascalCase(),
                         FormatKebabCase(),
                         FormatDomain(),
-                        FormatPath()
+                        FormatPath(),
+                        FormatCsv()
                     ),
                     stdout
                 ),
                 PathCommand(
                     (
-                        ParseDelimited(CharacterType.DASH),
+                        ParseCharacterDelimited(CharacterType.SLASH),
                         FormatSnakeCase(),
                         FormatCamelCase(),
                         FormatPascalCase(),
                         FormatConstantCase(),
                         FormatKebabCase(),
-                        FormatDomain()
+                        FormatDomain(),
+                        FormatCsv()
                     ),
                     stdout
                 ),
                 DomainCommand(
                     (
-                        ParseDelimited(CharacterType.DASH),
+                        ParseCharacterDelimited(CharacterType.DOT),
                         FormatSnakeCase(),
                         FormatCamelCase(),
                         FormatPascalCase(),
                         FormatConstantCase(),
                         FormatDomain(),
-                        FormatKebabCase()
+                        FormatKebabCase(),
+                        FormatCsv()
+                    ),
+                    stdout
+                ),
+                CsvCommand(
+                    (
+                        ParseCharacterDelimited(CharacterType.COMMA),
+                        FormatSnakeCase(),
+                        FormatCamelCase(),
+                        FormatPascalCase(),
+                        FormatConstantCase(),
+                        FormatDomain(),
+                        FormatKebabCase(),
+                        FormatDomain()
                     ),
                     stdout
                 )

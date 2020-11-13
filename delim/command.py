@@ -3,7 +3,7 @@ from argparse import Namespace, ArgumentParser, FileType, Action
 from sys import stdout, stdin
 from typing import Optional, Dict, Tuple, List
 
-from casec.operation import OperationInterface
+from delim.operation import OperationInterface
 
 
 class CommaSeparatedListAction(Action):
@@ -125,7 +125,7 @@ class RootCommandGroup(CommandGroupBase):
 
     @property
     def name(self) -> str:
-        return 'casec'
+        return 'delim'
 
     @property
     def title(self) -> str:
@@ -133,7 +133,7 @@ class RootCommandGroup(CommandGroupBase):
 
     @property
     def usage(self) -> Optional[str]:
-        return 'casec COMMAND'
+        return 'delim COMMAND'
 
 
 class SnakeCaseCommand(CommandBase):
@@ -210,6 +210,18 @@ class SnakeCaseCommand(CommandBase):
                 }
             },
             {
+                'args': ('-v', '--csv'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_csv',
+                    'help': 'Convert the input to a comma separated list.',
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
                 'args': ('-o', '--constant-case'),
                 'kwargs': {
                     'action': 'store_true',
@@ -222,12 +234,14 @@ class SnakeCaseCommand(CommandBase):
                 }
             },
             {
-                'args': ('-a', '--acronyms'),
+                'args': ('-r', '--format-literals'),
                 'kwargs': {
                     'action': CommaSeparatedListAction,
                     'default': [],
-                    'dest': 'acronyms',
-                    'help': 'A comma separated list of acronyms which should be uppercase for camel and pascal cases.'
+                    'dest': 'format_literals',
+                    'help': 'A comma separated list of case sensitive string literals. During formatting, any words '
+                            'which match a lower cased literal will formatted with the same casing as the literal.'
+
                 }
             }
         )
@@ -315,6 +329,18 @@ class CamelCaseCommand(CommandBase):
                 }
             },
             {
+                'args': ('-v', '--csv'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_csv',
+                    'help': 'Convert the input to a comma separated list.',
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
                 'args': ('-o', '--constant-case'),
                 'kwargs': {
                     'action': 'store_true',
@@ -327,12 +353,23 @@ class CamelCaseCommand(CommandBase):
                 }
             },
             {
-                'args': ('-a', '--acronyms'),
+                'args': ('-r', '--format-literals'),
                 'kwargs': {
                     'action': CommaSeparatedListAction,
                     'default': [],
-                    'dest': 'acronyms',
-                    'help': 'A comma separated list of acronyms which should be uppercase for camel and pascal cases.'
+                    'dest': 'format_literals',
+                    'help': 'A comma separated list of case sensitive string literals. During formatting, any words '
+                            'which match a lower cased literal will formatted with the same casing as the literal.'
+                }
+            },
+            {
+                'args': ('-l', '--literals'),
+                'kwargs': {
+                    'action': CommaSeparatedListAction,
+                    'default': [],
+                    'dest': 'literals',
+                    'help': 'A comma separated list of case sensitive string literals that should be treated as a word '
+                            'when parsing input.'
                 }
             }
         )
@@ -432,12 +469,35 @@ class PascalCaseCommand(CommandBase):
                 }
             },
             {
-                'args': ('-a', '--acronyms'),
+                'args': ('-v', '--csv'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_csv',
+                    'help': 'Convert the input to a comma separated list.',
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
+                'args': ('-r', '--format-literals'),
                 'kwargs': {
                     'action': CommaSeparatedListAction,
                     'default': [],
-                    'dest': 'acronyms',
-                    'help': 'A comma separated list of acronyms which should be uppercase for camel and pascal cases.'
+                    'dest': 'format_literals',
+                    'help': 'A comma separated list of case sensitive string literals. During formatting, any words '
+                            'which match a lower cased literal will formatted with the same casing as the literal.'
+                }
+            },
+            {
+                'args': ('-l', '--literals'),
+                'kwargs': {
+                    'action': CommaSeparatedListAction,
+                    'default': [],
+                    'dest': 'literals',
+                    'help': 'A comma separated list of case sensitive string literals that should be treated as a word '
+                            'when parsing input.'
                 }
             }
         )
@@ -502,6 +562,18 @@ class ConstantCaseCommand(CommandBase):
                 }
             },
             {
+                'args': ('-k', '--kebab-case'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_kebab_case',
+                    'help': 'Convert the input to kebab case.'
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
                 'args': ('-d', '--domain'),
                 'kwargs': {
                     'action': 'store_true',
@@ -526,12 +598,25 @@ class ConstantCaseCommand(CommandBase):
                 }
             },
             {
-                'args': ('-a', '--acronyms'),
+                'args': ('-v', '--csv'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_csv',
+                    'help': 'Convert the input to a comma separated list.',
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
+                'args': ('-r', '--format-literals'),
                 'kwargs': {
                     'action': CommaSeparatedListAction,
                     'default': [],
-                    'dest': 'acronyms',
-                    'help': 'A comma separated list of acronyms which should be uppercase for camel and pascal cases.'
+                    'dest': 'format_literals',
+                    'help': 'A comma separated list of case sensitive string literals. During formatting, any words '
+                            'which match a lower cased literal will formatted with the same casing as the literal.'
                 }
             }
         )
@@ -620,6 +705,18 @@ class KebabCaseCommand(CommandBase):
                 }
             },
             {
+                'args': ('-v', '--csv'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_csv',
+                    'help': 'Convert the input to a comma separated list.',
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
                 'args': ('-o', '--constant-case'),
                 'kwargs': {
                     'action': 'store_true',
@@ -632,12 +729,13 @@ class KebabCaseCommand(CommandBase):
                 }
             },
             {
-                'args': ('-a', '--acronyms'),
+                'args': ('-r', '--format-literals'),
                 'kwargs': {
                     'action': CommaSeparatedListAction,
                     'default': [],
-                    'dest': 'acronyms',
-                    'help': 'A comma separated list of acronyms which should be uppercase for camel and pascal cases.'
+                    'dest': 'format_literals',
+                    'help': 'A comma separated list of case sensitive string literals. During formatting, any words '
+                            'which match a lower cased literal will formatted with the same casing as the literal.'
                 }
             }
         )
@@ -702,6 +800,18 @@ class DomainCommand(CommandBase):
                 }
             },
             {
+                'args': ('-k', '--kebab-case'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_kebab_case',
+                    'help': 'Convert the input to kebab case.'
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
                 'args': ('-t', '--path'),
                 'kwargs': {
                     'action': 'store_true',
@@ -726,12 +836,25 @@ class DomainCommand(CommandBase):
                 }
             },
             {
-                'args': ('-a', '--acronyms'),
+                'args': ('-v', '--csv'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_csv',
+                    'help': 'Convert the input to a comma separated list.',
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
+                'args': ('-r', '--format-literals'),
                 'kwargs': {
                     'action': CommaSeparatedListAction,
                     'default': [],
-                    'dest': 'acronyms',
-                    'help': 'A comma separated list of acronyms which should be uppercase for camel and pascal cases.'
+                    'dest': 'format_literals',
+                    'help': 'A comma separated list of case sensitive string literals. During formatting, any words '
+                            'which match a lower cased literal will formatted with the same casing as the literal.'
                 }
             }
         )
@@ -796,6 +919,18 @@ class PathCommand(CommandBase):
                 }
             },
             {
+                'args': ('-k', '--kebab-case'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_kebab_case',
+                    'help': 'Convert the input to kebab case.'
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
                 'args': ('-d', '--domain'),
                 'kwargs': {
                     'action': 'store_true',
@@ -820,12 +955,25 @@ class PathCommand(CommandBase):
                 }
             },
             {
-                'args': ('-a', '--acronyms'),
+                'args': ('-v', '--csv'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_csv',
+                    'help': 'Convert the input to a comma separated list.',
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
+                'args': ('-r', '--format-literals'),
                 'kwargs': {
                     'action': CommaSeparatedListAction,
                     'default': [],
-                    'dest': 'acronyms',
-                    'help': 'A comma separated list of acronyms which should be uppercase for camel and pascal cases.'
+                    'dest': 'format_literals',
+                    'help': 'A comma separated list of case sensitive string literals. During formatting, any words '
+                            'which match a lower cased literal will formatted with the same casing as the literal.'
                 }
             }
         )
@@ -837,3 +985,122 @@ class PathCommand(CommandBase):
     @property
     def name(self) -> str:
         return 'path'
+
+
+class CsvCommand(CommandBase):
+    @property
+    def options(self) -> Tuple[Dict, ...]:
+        return (
+            {
+                'args': ('-f', '--file',),
+                'kwargs': {
+                    'default': stdin,
+                    'dest': 'file_object',
+                    'metavar': '<file>',
+                    'help': 'An input file which should be converted to another case. May also be stdin.',
+                    'type': FileType('r')
+                }
+            },
+            {
+                'args': ('-c', '--camel-case'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_camel_case',
+                    'help': 'Convert the input to camel case.',
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
+                'args': ('-p', '--pascal-case'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_pascal_case',
+                    'help': 'Convert the input to pascal case.',
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
+                'args': ('-s', '--snake-case'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_snake_case',
+                    'help': 'Convert the input to snake case.',
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
+                'args': ('-k', '--kebab-case'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_kebab_case',
+                    'help': 'Convert the input to kebab case.'
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
+                'args': ('-d', '--domain'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_domain',
+                    'help': 'Convert the input to domain syntax.',
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
+                'args': ('-o', '--constant-case'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_constant_case',
+                    'help': 'Convert the input to constant case.',
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
+                'args': ('-t', '--path'),
+                'kwargs': {
+                    'action': 'store_true',
+                    'dest': 'format_path',
+                    'help': 'Convert the input to path syntax.',
+                },
+                'mutually_exclusive_group': {
+                    'name': 'format',
+                    'is_required': True
+                }
+            },
+            {
+                'args': ('-r', '--format-literals'),
+                'kwargs': {
+                    'action': CommaSeparatedListAction,
+                    'default': [],
+                    'dest': 'format_literals',
+                    'help': 'A comma separated list of case sensitive string literals. During formatting, any words '
+                            'which match a lower cased literal will formatted with the same casing as the literal.'
+                }
+            }
+        )
+
+    @property
+    def help(self) -> str:
+        return 'Transform comma separated strings into another format.'
+
+    @property
+    def name(self) -> str:
+        return 'csv'

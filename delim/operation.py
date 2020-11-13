@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 from argparse import Namespace
 from typing import IO
 
-from casec.container import CharacterType, CharacterContainer
-from casec.formatter import FormatterBase, CaseDelimitedFormatter, DelimitedFormatter
-from casec.parser import DelimitedParser, CaseDelimitedParser, ParserBase
+from delim.container import CharacterType, CharacterContainer
+from delim.formatter import FormatterBase, CaseDelimitedFormatter, CharacterDelimitedFormatter
+from delim.parser import CharacterDelimitedParser, CaseDelimitedParser, ParserBase
 
 
 class OperationInterface(ABC):
@@ -33,9 +33,9 @@ class ParseBase(OperationInterface, ABC):
         namespace.parsed_words = parsed_words
 
 
-class ParseDelimited(ParseBase):
+class ParseCharacterDelimited(ParseBase):
     def __init__(self, delimiter: CharacterType):
-        super().__init__(DelimitedParser(delimiter))
+        super().__init__(CharacterDelimitedParser(delimiter))
 
     def should_perform(self, namespace: Namespace):
         return True
@@ -47,6 +47,12 @@ class ParseCaseDelimited(ParseBase):
 
     def should_perform(self, namespace: Namespace):
         return True
+
+    def perform(self, namespace: Namespace):
+        if namespace.literals:
+            self._parser.literals = namespace.literals
+
+        super().perform(namespace)
 
 
 class FormatBase(OperationInterface, ABC):
@@ -66,7 +72,7 @@ class FormatBase(OperationInterface, ABC):
 
 class FormatSnakeCase(FormatBase):
     def __init__(self):
-        super().__init__(DelimitedFormatter('_'))
+        super().__init__(CharacterDelimitedFormatter('_'))
 
     def should_perform(self, namespace: Namespace):
         return namespace.format_snake_case is True
@@ -80,8 +86,8 @@ class FormatCamelCase(FormatBase):
         return namespace.format_camel_case is True
 
     def perform(self, namespace: Namespace):
-        if namespace.acronyms:
-            self._formatter = CaseDelimitedFormatter(CharacterType.LOWERCASE, namespace.acronyms)
+        if namespace.format_literals:
+            self._formatter = CaseDelimitedFormatter(CharacterType.LOWERCASE, namespace.format_literals)
         super().perform(namespace)
 
 
@@ -93,14 +99,14 @@ class FormatPascalCase(FormatBase):
         return namespace.format_pascal_case is True
 
     def perform(self, namespace: Namespace):
-        if namespace.acronyms:
-            self._formatter = CaseDelimitedFormatter(CharacterType.UPPERCASE, namespace.acronyms)
+        if namespace.format_literals:
+            self._formatter = CaseDelimitedFormatter(CharacterType.UPPERCASE, namespace.format_literals)
         super().perform(namespace)
 
 
 class FormatKebabCase(FormatBase):
     def __init__(self):
-        super().__init__(DelimitedFormatter('-'))
+        super().__init__(CharacterDelimitedFormatter('-'))
 
     def should_perform(self, namespace: Namespace):
         return namespace.format_kebab_case is True
@@ -108,7 +114,7 @@ class FormatKebabCase(FormatBase):
 
 class FormatConstantCase(FormatBase):
     def __init__(self):
-        super().__init__(DelimitedFormatter('_'))
+        super().__init__(CharacterDelimitedFormatter('_'))
 
     def should_perform(self, namespace: Namespace):
         return namespace.format_constant_case is True
@@ -126,7 +132,7 @@ class FormatConstantCase(FormatBase):
 
 class FormatDomain(FormatBase):
     def __init__(self):
-        super().__init__(DelimitedFormatter('.'))
+        super().__init__(CharacterDelimitedFormatter('.'))
 
     def should_perform(self, namespace: Namespace):
         return namespace.format_domain is True
@@ -134,7 +140,15 @@ class FormatDomain(FormatBase):
 
 class FormatPath(FormatBase):
     def __init__(self):
-        super().__init__(DelimitedFormatter('/'))
+        super().__init__(CharacterDelimitedFormatter('/'))
 
     def should_perform(self, namespace: Namespace):
         return namespace.format_path is True
+
+
+class FormatCsv(FormatBase):
+    def __init__(self):
+        super().__init__(CharacterDelimitedFormatter(','))
+
+    def should_perform(self, namespace: Namespace):
+        return namespace.format_csv is True
