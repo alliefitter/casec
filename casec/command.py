@@ -3,7 +3,7 @@ from argparse import Namespace, ArgumentParser, FileType, Action
 from sys import stdout, stdin
 from typing import Optional, Dict, Tuple, List
 
-from delim.operation import OperationInterface
+from casec.operation import OperationInterface
 
 
 class CommaSeparatedListAction(Action):
@@ -125,7 +125,7 @@ class RootCommandGroup(CommandGroupBase):
 
     @property
     def name(self) -> str:
-        return 'delim'
+        return 'casec'
 
     @property
     def title(self) -> str:
@@ -133,7 +133,7 @@ class RootCommandGroup(CommandGroupBase):
 
     @property
     def usage(self) -> Optional[str]:
-        return 'delim COMMAND'
+        return 'casec COMMAND'
 
 
 class SnakeCaseCommand(CommandBase):

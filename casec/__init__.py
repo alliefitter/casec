@@ -1,8 +1,8 @@
 from typing import List
 
-from delim.container import CharacterType, CharacterContainer
-from delim.formatter import CaseDelimitedFormatter, CharacterDelimitedFormatter
-from delim.parser import CharacterDelimitedParser, CaseDelimitedParser
+from casec.container import CharacterType, CharacterContainer
+from casec.formatter import CaseDelimitedFormatter, CharacterDelimitedFormatter
+from casec.parser import CharacterDelimitedParser, CaseDelimitedParser
 
 
 def parse_snake_case(string: str):

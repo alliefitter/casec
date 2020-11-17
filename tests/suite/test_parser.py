@@ -3,8 +3,8 @@ from unittest import TestCase
 
 from yaml import safe_load
 
-from delim import CaseDelimitedParser, CharacterType, CharacterContainer, CharacterDelimitedParser
-from delim.parser import ParserBase
+from casec import CaseDelimitedParser, CharacterType, CharacterContainer, CharacterDelimitedParser
+from casec.parser import ParserBase
 
 
 class TestParser(TestCase):

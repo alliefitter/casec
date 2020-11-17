@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
-from delim.container import CharacterType, CharacterContainer, Character
+from casec.container import CharacterType, CharacterContainer, Character
 
 
 class ParserBase(ABC):

@@ -5,8 +5,8 @@ from unittest import TestCase
 
 from yaml import safe_load
 
-from delim import CharacterType, CharacterContainer
-from delim.operation import OperationInterface, ParseCaseDelimited, ParseCharacterDelimited, FormatCamelCase, \
+from casec import CharacterType, CharacterContainer
+from casec.operation import OperationInterface, ParseCaseDelimited, ParseCharacterDelimited, FormatCamelCase, \
     FormatPascalCase, FormatSnakeCase, FormatPath, FormatKebabCase, FormatDomain, FormatConstantCase, FormatCsv
 
 

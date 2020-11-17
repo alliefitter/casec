@@ -3,8 +3,8 @@ from unittest import TestCase
 
 from yaml import safe_load
 
-from delim import CaseDelimitedFormatter, CharacterType, CharacterContainer
-from delim.formatter import FormatterBase, CharacterDelimitedFormatter
+from casec import CaseDelimitedFormatter, CharacterType, CharacterContainer
+from casec.formatter import FormatterBase, CharacterDelimitedFormatter
 
 
 class TestFormatter(TestCase):

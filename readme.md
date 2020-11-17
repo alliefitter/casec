@@ -1,4 +1,4 @@
-# `delim`
+# `casec`
 
 This tool was made to fix the problem of converting variable or field names from one
 type of casing to another, for instance from camel case to snake case or from pascal
@@ -7,7 +7,7 @@ which require converting field names to another case in order to adhere to a sty
 This can become very tedious very quickly. A regular expression may be able to solve the
 problem once, but this will only convert one case to another. You would need several
 regular expressions for each conversion if you were to want to handle multiple naming
-conventions. `delim` makes all of this much easier. 
+conventions. `casec` makes all of this much easier. 
 
 Converting one naming convention to another reduces to two basic problems. Parsing a 
 delimited string into words and formatting words into a delimited string. The delimiter
@@ -20,19 +20,19 @@ acronyms be handled? Should a camel cased name have "VPN" formatted in all caps 
 What of proper nouns with a standard casing such as "iOS"? Should it be formatted as "IOs"
 in pascal case? When converting a camel cased name, "iOSUsername," to snake case, how should
 "iOS" be parsed? Should the result be "ios_username" or "i_os_username"? The answers to these
-questions can vary based on the style guide you're using. One the goals of `delim` is  to
+questions can vary based on the style guide you're using. One the goals of `casec` is  to
 handle situations like these dynamically in straightforward way. 
 
 
 ## Installation
 
 ```
-$ pip install delim
+$ pip install casec
 ```
 
 ## Usage
 
-Basic usage is as simple as `delim snake-case -c -f <file name>`. This converts a file of
+Basic usage is as simple as `casec snake-case -c -f <file name>`. This converts a file of
 snake cased names to camel-case.
 
 ```bash
@@ -44,7 +44,7 @@ avatar_url
 gravatar_id
 url
 html_url
-$ delim snake-case -c -f some_camel_cased_names
+$ casec snake-case -c -f some_camel_cased_names
 login
 id
 nodeId
@@ -65,7 +65,7 @@ AvatarUrl
 GravatarId
 Url
 HtmlUrl
-$ delim pascal-case -c -f some_pascal_cased_names
+$ casec pascal-case -c -f some_pascal_cased_names
 login
 id
 nodeId
@@ -73,7 +73,7 @@ avatarUrl
 gravatarId
 url
 htmlUrl
-$ delim pascal-case -s -f some_pascal_cased_names
+$ casec pascal-case -s -f some_pascal_cased_names
 login
 id
 node_id
@@ -81,7 +81,7 @@ avatar_url
 gravatar_id
 url
 html_url
-$ delim pascal-case -k -f some_pascal_cased_names
+$ casec pascal-case -k -f some_pascal_cased_names
 login
 id
 node-id
@@ -102,7 +102,7 @@ avatar-url
 gravatar-id
 url
 html-url
-$ cat some_kebab_cased_names | delim kebab-case -c
+$ cat some_kebab_cased_names | casec kebab-case -c
 login
 id
 nodeId
@@ -110,7 +110,7 @@ avatarUrl
 gravatarId
 url
 htmlUrl
-$ cat some_kebab_cased_names | delim kebab-case -c | delim camel-case -s
+$ cat some_kebab_cased_names | casec kebab-case -c | casec camel-case -s
 login
 id
 node_id
@@ -128,10 +128,10 @@ can be used to provide a comma separated list of literals.
 $ cat some_other_camel_cased_names
 iOSApp
 iTunesStoreId
-$ cat some_other_camel_cased_names | delim camel-case -s
+$ cat some_other_camel_cased_names | casec camel-case -s
 i_os_app
 i_tunes_store_id
-$ cat some_other_camel_cased_names | delim camel-case -s -l iOS,iTunes
+$ cat some_other_camel_cased_names | casec camel-case -s -l iOS,iTunes
 ios_app
 itunes_store_id
 ```
@@ -139,13 +139,13 @@ itunes_store_id
 Using the `-r, --format-literals` switch, output can be formatted.
 
 ```bash
-$ cat some_other_snake_cased_names | delim camel-case -s -l iOS,iTunes
+$ cat some_other_snake_cased_names | casec camel-case -s -l iOS,iTunes
 ios_app
 itunes_store_id
-$ cat some_other_snake_cased_names | delim camel-case -s -l iOS,iTunes
+$ cat some_other_snake_cased_names | casec camel-case -s -l iOS,iTunes
 iOSApp
 iTunesstoreId
-$ cat some_other_snake_cased_names | delim camel-case -s -l iOS,iTunes,ID
+$ cat some_other_snake_cased_names | casec camel-case -s -l iOS,iTunes,ID
 iOSApp
 iTunesstoreID
 ```
@@ -174,7 +174,7 @@ $ cat some_json.json
   "type": "User",
   "site_admin": false
 }
-$ cat some_json.json | jq -r 'keys[]' | delim snake-case -c
+$ cat some_json.json | jq -r 'keys[]' | casec snake-case -c
 avatarUrl
 eventsUrl
 followersUrl

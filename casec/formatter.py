@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from delim.container import CharacterType, CharacterContainer
+from casec.container import CharacterType, CharacterContainer
 
 
 class FormatterBase(ABC):

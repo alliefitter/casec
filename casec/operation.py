@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 from argparse import Namespace
 from typing import IO
 
-from delim.container import CharacterType, CharacterContainer
-from delim.formatter import FormatterBase, CaseDelimitedFormatter, CharacterDelimitedFormatter
-from delim.parser import CharacterDelimitedParser, CaseDelimitedParser, ParserBase
+from casec.container import CharacterType, CharacterContainer
+from casec.formatter import FormatterBase, CaseDelimitedFormatter, CharacterDelimitedFormatter
+from casec.parser import CharacterDelimitedParser, CaseDelimitedParser, ParserBase
 
 
 class OperationInterface(ABC):

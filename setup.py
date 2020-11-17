@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='delim',
+    name='casec',
     version='0.2.0',
     packages=find_packages(),
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'delim = delim.main:main'
+            'casec = casec.main:main'
         ]
     },
     url='',

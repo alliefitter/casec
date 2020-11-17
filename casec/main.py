@@ -1,10 +1,10 @@
 from sys import stdout, argv
 
-from delim.client import Client
-from delim.command import RootCommandGroup, SnakeCaseCommand, CamelCaseCommand, PascalCaseCommand, KebabCaseCommand, \
+from casec.client import Client
+from casec.command import RootCommandGroup, SnakeCaseCommand, CamelCaseCommand, PascalCaseCommand, KebabCaseCommand, \
     ConstantCaseCommand, DomainCommand, PathCommand, CsvCommand
-from delim.container import CharacterType
-from delim.operation import ParseCharacterDelimited, FormatCamelCase, FormatKebabCase, FormatPascalCase, \
+from casec.container import CharacterType
+from casec.operation import ParseCharacterDelimited, FormatCamelCase, FormatKebabCase, FormatPascalCase, \
     ParseCaseDelimited, \
     FormatSnakeCase, FormatConstantCase, FormatDomain, FormatPath, FormatCsv
 
@@ -59,6 +59,7 @@ def main(args=None):
                         FormatSnakeCase(),
                         FormatCamelCase(),
                         FormatPascalCase(),
+                        FormatConstantCase(),
                         FormatDomain(),
                         FormatPath(),
                         FormatCsv()
@@ -98,7 +99,7 @@ def main(args=None):
                         FormatCamelCase(),
                         FormatPascalCase(),
                         FormatConstantCase(),
-                        FormatDomain(),
+                        FormatPath(),
                         FormatKebabCase(),
                         FormatCsv()
                     ),
@@ -111,7 +112,7 @@ def main(args=None):
                         FormatCamelCase(),
                         FormatPascalCase(),
                         FormatConstantCase(),
-                        FormatDomain(),
+                        FormatPath(),
                         FormatKebabCase(),
                         FormatDomain()
                     ),

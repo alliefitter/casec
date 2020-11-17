@@ -63,6 +63,11 @@ i,tunes,store,id:
   - tunes
   - store
   - id
+i,tunes,store,ids:
+  - i
+  - tunes
+  - store
+  - ids
 foo,bar,baz:
   - foo
   - bar

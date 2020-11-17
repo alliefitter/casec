@@ -63,6 +63,11 @@ I_TUNES_STORE_ID:
   - tunes
   - store
   - id
+I_TUNES_STORE_IDS:
+  - i
+  - tunes
+  - store
+  - ids
 FOO_BAR_BAZ:
   - foo
   - bar
